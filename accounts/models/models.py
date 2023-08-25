@@ -113,7 +113,7 @@ class Hub(models.Model):
 class Batch(models.Model):
     hub = models.ForeignKey(Hub, on_delete=models.CASCADE)
     number = models.PositiveIntegerField(unique=True)
-    batch_name = models.CharField(null=True, blank=True)
+    batch_name = models.CharField(max_length=15,null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.batch_name:
