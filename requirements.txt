@@ -11,4 +11,4 @@ redis
 requests
 pillow
 django-cloudinary-storage
-cloudinary
+cloudinary==1.34
