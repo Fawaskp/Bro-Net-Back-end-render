@@ -35,14 +35,15 @@ def generate_token(token_length=20):
     token = ''.join(random.choice(characters) for _ in range(token_length))
     return token
 
-def email_validator(value:str) -> str:
+
+def email_validator(value: str) -> str:
     '''
     It takes email as input, return email if it is validated
     otherwise return will be None
     '''
-    pat = "^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+\.[a-z]{1,3}$"
-    if not re.match(pat,value):
-        raise ValidationError("This is not a valid email, try again!")
+    pat = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9]+\.[a-z]{1,3}$"
+    if not re.match(pat, value):
+        raise ValueError("This is not a valid email, try again!")
     return value
 
 def decode_jwt_payload(token):
