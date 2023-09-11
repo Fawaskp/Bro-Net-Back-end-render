@@ -8,6 +8,7 @@ import string
 import re
 import json 
 import base64
+from decouple import config
 
 User = get_user_model()
 
@@ -93,7 +94,8 @@ def authenticate_user(request,role):
         return None
 
 
-def email_sender(email: str, link: str) -> bool:
+def email_sender(email: str) -> bool:
+    link  = config('CLIENT_URL')
     try:
         html_message = f'''
         <html>

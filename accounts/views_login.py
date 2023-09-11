@@ -8,11 +8,11 @@ from .helpers import (
     generate_token,
     email_sender,
     create_jwt_pair_tokens,
+    authenticate_user,
 )
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
-from .helpers import authenticate_user
 from django.core.mail import send_mail
 from django.conf import settings
 import random
@@ -151,7 +151,7 @@ class LoginWithEmail(APIView):
 
         token = generate_token()
         link = f"http://localhost:5173/auth/login/?token={token}"
-        result = email_sender(email, link)
+        result = email_sender(email)
         if result:
             LoginWithEmailData.objects.create(token=token, email=email)
             return Response(data={"token": token, "status": status.HTTP_200_OK})
