@@ -102,19 +102,12 @@ TEMPLATES = [
 ASGI_APPLICATION = "Project.asgi.application"
 
 
-# Database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "HOST": config("db_host"),
-        "USER": config("db_user"),
-        "PASSWORD": config("db_pass"),
-        "NAME": config("db_name"),
-        "PORT": config("db_port"),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
-
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {

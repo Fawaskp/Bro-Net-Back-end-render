@@ -15,9 +15,9 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from django.core.mail import send_mail
 from django.conf import settings
+from decouple import config
 import random
 import re
-
 """
 check-username
 token
@@ -150,8 +150,8 @@ class LoginWithEmail(APIView):
                 return Response(data={"message": block_message, "status": 403})
 
         token = generate_token()
-        link = f"http://localhost:5173/auth/login/?token={token}"
-        result = email_sender(email)
+        link = f"{config('CLIENT_URL')}/auth/login/?token={token}"
+        result = email_sender(email,link)
         if result:
             LoginWithEmailData.objects.create(token=token, email=email)
             return Response(data={"token": token, "status": status.HTTP_200_OK})
@@ -159,8 +159,8 @@ class LoginWithEmail(APIView):
             return Response(
                 data={
                     "message": "Email couldn't send",
-                    "status": status.HTTP_503_SERVICE_UNAVAILABLE,
-                }
+                },
+                status= status.HTTP_503_SERVICE_UNAVAILABLE
             )
 
 

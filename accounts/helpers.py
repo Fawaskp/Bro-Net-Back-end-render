@@ -94,8 +94,7 @@ def authenticate_user(request,role):
         return None
 
 
-def email_sender(email: str) -> bool:
-    link  = config('CLIENT_URL')
+def email_sender(email: str,link:str) -> bool:
     try:
         html_message = f'''
         <html>
@@ -145,7 +144,9 @@ def email_sender(email: str) -> bool:
             html_message=html_message,
             fail_silently=False,
         )
-    except:
+    except Exception as e:
+        print('Issue while sending mail: ')
+        print(e)
         return False
     else:
         return True
