@@ -2,10 +2,9 @@ import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from decouple import config
-import json
 
-CLIENT_ID = config('github_client_id')
-CLIENT_SECRET = config('github_client_secret')
+CLIENT_ID = config('GITHUB_CLIENT_ID')
+CLIENT_SECRET = config('GITHUB_CLIENT_SECRET')
 
 def get_access_token(request):
     if request.method == 'GET':

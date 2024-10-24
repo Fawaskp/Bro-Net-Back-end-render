@@ -1,13 +1,13 @@
 import os
 from pathlib import Path
-from decouple import config
+from decouple import config,Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config("secret_key")
-DEBUG = config('DEBUG')
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = config("SECRET_KEY")
+DEBUG = config('DEBUG',cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=Csv())
 
 
 INSTALLED_APPS = [
@@ -44,7 +44,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(config('redis_domain_name'))],
+            "hosts": [(config('REDIS_DOMAIN_NAME'))],
         },
     },
 }
@@ -65,14 +65,6 @@ CORS_ALLOW_METHODS = (
     "POST",
     "PUT",
 )
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-]
-
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:5173",
-]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -108,6 +100,7 @@ DATABASES = {
         'NAME': BASE_DIR / "db.sqlite3",
     }
 }
+
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
